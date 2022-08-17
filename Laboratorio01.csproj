@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Data_Structure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data_Structure\" />
+  </ItemGroup>
 </Project>
