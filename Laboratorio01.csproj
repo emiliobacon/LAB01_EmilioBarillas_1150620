@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <None Remove="Data_Structure\" />
+    <None Remove="Data_Structure\Cola\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data_Structure\" />
+    <Folder Include="Data_Structure\Cola\" />
   </ItemGroup>
 </Project>
