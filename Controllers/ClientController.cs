@@ -1,22 +1,93 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Laboratorio01.Controllers
 {
-    public class ClientController
+    public class ClientController : Controller
     {
-        [Required]
-        public int Id { get; set; }
+        // GET: Client
+        public ActionResult Index()
+        {
+            return View();
+        }
 
-        [Required]
-        public string FullName { get; set; }
+        // GET: Client/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
 
-        [Required]
-        public string Address { get; set; }
+        // GET: Client/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
-        [Required]
-        public DateTime Birthday { get; set; }
+        // POST: Client/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
 
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Client/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: Client/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Client/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: Client/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
-
