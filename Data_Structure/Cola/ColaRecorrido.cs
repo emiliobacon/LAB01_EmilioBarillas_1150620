@@ -3,7 +3,7 @@ namespace Laboratorio01.Data_Structure.Cola
 {
     public class ColaRecorrido<T>
     {
-        NodoSimple<T> Cabeza = new NodoSimple<T>();
+        NodoSimple<T> _cabeza = new NodoSimple<T>();
         NodoSimple<T> Cola = new NodoSimple<T>();
         NodoSimple<T> Retorno = new NodoSimple<T>();
 
@@ -13,9 +13,9 @@ namespace Laboratorio01.Data_Structure.Cola
             NodoSimple<T> Nuevo = new NodoSimple<T>();
             Nuevo.Valor = data;
 
-            if (Cabeza.Valor == null)
+            if (_cabeza.Valor == null)
             {
-                Cabeza = Nuevo;
+                _cabeza = Nuevo;
                 Cola = Nuevo;
             }
             else
@@ -27,11 +27,11 @@ namespace Laboratorio01.Data_Structure.Cola
 
         public T DesEncolar()
         {
-            if (Cabeza != null)
+            if (_cabeza != null)
             {
-                Retorno = Cabeza;
-                Cabeza = Cabeza.Siguiente;
-                if (Cabeza == null)
+                Retorno = _cabeza;
+                _cabeza = _cabeza.Siguiente;
+                if (_cabeza == null)
                 {
                     Cola = null;
                 }
@@ -41,7 +41,7 @@ namespace Laboratorio01.Data_Structure.Cola
 
         public bool ColaVacia()
         {
-            return Cabeza == null;
+            return _cabeza == null;
         }
     }
 }
