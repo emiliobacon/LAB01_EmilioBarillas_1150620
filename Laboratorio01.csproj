@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data_Structure\" />
+    <None Remove="Data_Structure\Cola\" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Helpers\" />
+    <None Remove="Comparison\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data_Structure\" />
+    <Folder Include="Data_Structure\Cola\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Comparison\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+  </ItemGroup>
+</Project>
