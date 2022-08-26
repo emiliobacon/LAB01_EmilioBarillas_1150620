@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Laboratorio01.Helpers;
+using Laboratorio01.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +14,7 @@ namespace Laboratorio01.Controllers
         // GET: Client
         public ActionResult Index()
         {
-            return View();
+            return View(Data.Instance.miArbolAvlId);
         }
 
         // GET: Client/Details/5
@@ -34,8 +36,11 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-
+                ClientModel.SaveAVLMode(new ClientModel
+                {
+                    Id = int.Parse(collection["Id"]),
+                    FullName = collection["FullName"],
+                });
                 return RedirectToAction(nameof(Index));
             }
             catch

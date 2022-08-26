@@ -1,0 +1,49 @@
+﻿@model Laboratorio01.Models.ClientModel
+
+@{
+    ViewData["Create"] = "Create";
+}
+
+<h1>Crear un nuevo Cliente</h1>
+
+<p>
+    <b>Cargar  desde Archivo</b>
+</p>
+<form asp-controller="Client" asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <br />
+    <br />
+    <button type="submit">Cargar</button>
+    <hr />
+</form>
+
+<h4>Nuevo Cliente</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
