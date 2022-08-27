@@ -27,6 +27,12 @@ namespace Laboratorio01.Controllers
             return View();
         }
 
+        //Mostrar error al cargar
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         // GET: Client/Create
         public ActionResult Create()
         {
@@ -49,7 +55,7 @@ namespace Laboratorio01.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 
@@ -104,7 +110,7 @@ namespace Laboratorio01.Controllers
         public IActionResult Index(List<ClientModel> clients = null)
         {
             clients = clients == null ? new List<ClientModel>() : clients;
-            return View(clients);
+            return View(Data.Instance.miArbolAvlId);
         }
 
         [HttpPost]
@@ -120,7 +126,7 @@ namespace Laboratorio01.Controllers
             }
 
 
-            var clients = this.GetClientList(fileName);
+            var clients = this.GetClientList(file.FileName);
 
             return Index(clients);
         }
@@ -139,17 +145,11 @@ namespace Laboratorio01.Controllers
                 while (csv.Read())
                 {
                     var client = csv.GetRecord<ClientModel>();
-                    clients.Add(client);
+                    Data.Instance.miArbolAvlId.Insert(client);
                 }
             }
 
-            //Create CSV
-            path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
-            using (var write = new StreamWriter(path + "\\NewFile.csv"))
-            using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
-            {
-                csv.WriteRecord(clients);
-            }
+            
 
             return clients;
 
