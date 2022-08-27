@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CsvHelper;
 using Laboratorio01.Helpers;
 using Laboratorio01.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -94,5 +98,62 @@ namespace Laboratorio01.Controllers
                 return View();
             }
         }
+
+        //Cargar desde CSV 
+        [HttpGet]
+        public IActionResult Index(List<ClientModel> clients = null)
+        {
+            clients = clients == null ? new List<ClientModel>() : clients;
+            return View(clients);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            //cargar csv
+
+            string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+
+
+            var clients = this.GetClientList(fileName);
+
+            return Index(clients);
+        }
+
+        private List<ClientModel> GetClientList(string fileName)
+        {
+            List<ClientModel> clients = new List<ClientModel>();
+
+            //Leer CSV
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
+            using (var reader = new StringReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var client = csv.GetRecord<ClientModel>();
+                    clients.Add(client);
+                }
+            }
+
+            //Create CSV
+            path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\FilesTo"}";
+            using (var write = new StreamWriter(path + "\\NewFile.csv"))
+            using (var csv = new CsvWriter(write, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecord(clients);
+            }
+
+            return clients;
+
+        }
+
     }
 }
