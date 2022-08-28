@@ -1,9 +1,43 @@
 ﻿@model IEnumerable<Laboratorio01.Models.ClientModel>
-
 @{
-
-    ViewData["Title"] = "Index"; 
-
+    ViewData["Title"] = "Index";
 }
 
-<h1>Lista</h1>
+<h1>
+    Lista de Clientes
+</h1>
+
+<header>
+    
+
+</header>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
