@@ -27,6 +27,13 @@ namespace Laboratorio01.Controllers
             return View();
         }
 
+        //búsqueda por nombre 
+        public ActionResult Search()
+        {
+            return View(Data.Instance.miArbolAvlId);
+        }
+
+
         //Mostrar error al cargar
         public ActionResult Error()
         {
