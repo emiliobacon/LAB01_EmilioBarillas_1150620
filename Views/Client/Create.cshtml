@@ -6,6 +6,17 @@
 
 <h1>Create</h1>
 
+<p>
+    <b>Cargar  desde CSV</b>
+</p>
+<form asp-controller="Client" asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <br />
+    <br />
+    <button type="submit">Cargar</button>
+    <hr />
+</form>
+
 <h4>ClientModel</h4>
 <hr />
 <div class="row">

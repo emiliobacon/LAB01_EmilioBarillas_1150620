@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using Laboratorio01.Data_Structure;
 using Laboratorio01.Helpers;
 using Laboratorio01.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +21,8 @@ namespace Laboratorio01.Controllers
         {
             return View(Data.Instance.miArbolAvlId);
         }
+
+
 
         // GET: Client/Details/5
         public ActionResult Details()
@@ -57,7 +60,7 @@ namespace Laboratorio01.Controllers
                 {
                     Id = int.Parse(collection["Id"]),
                     FullName = collection["FullName"],
-                    Birthdate = DateTime.Parse(collection["Birthdate"]),
+                    Birthdate = collection["Birthdate"],
                     Address = collection["Address"],
                 });
                 return RedirectToAction(nameof(Index));
@@ -116,9 +119,9 @@ namespace Laboratorio01.Controllers
 
         //Cargar desde CSV 
         [HttpGet]
-        public IActionResult Index(List<ClientModel> clients = null)
+        public IActionResult Index(AVLtree<ClientModel> clients = null)
         {
-            clients = clients == null ? new List<ClientModel>() : clients;
+            clients = clients == null ? new AVLtree<ClientModel>() : clients;
             return View(Data.Instance.miArbolAvlId);
         }
 
@@ -136,31 +139,27 @@ namespace Laboratorio01.Controllers
 
 
             var clients = this.GetClientList(file.FileName);
-
             return Index(clients);
         }
 
-        private List<ClientModel> GetClientList(string fileName)
+        private AVLtree<ClientModel> GetClientList(string fileName)
         {
-            List<ClientModel> clients = new List<ClientModel>();
+            AVLtree<ClientModel> client = new AVLtree<ClientModel>();
 
             //Leer CSV
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
-            using (var reader = new StringReader(path))
+            using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    var client = csv.GetRecord<ClientModel>();
-                    Data.Instance.miArbolAvlId.Insert(client);
+                    var clients = csv.GetRecord<ClientModel>();
+                    Data.Instance.miArbolAvlId.Insert(clients);
                 }
             }
-
-            
-
-            return clients;
+            return client;
 
         }
 
