@@ -27,7 +27,7 @@ namespace Laboratorio01.Controllers
             return View();
         }
 
-        //búsqueda por nombre 
+        //bï¿½squeda por nombre 
         public ActionResult Search()
         {
             return View(Data.Instance.miArbolAvlId);
@@ -57,6 +57,8 @@ namespace Laboratorio01.Controllers
                 {
                     Id = int.Parse(collection["Id"]),
                     FullName = collection["FullName"],
+                    Birthdate = DateTime.Parse(collection["Birthdate"]),
+                    Address = collection["Address"],
                 });
                 return RedirectToAction(nameof(Index));
             }
