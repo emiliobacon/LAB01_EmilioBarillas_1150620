@@ -185,12 +185,21 @@ namespace Laboratorio01.Data_Structure
         }
 
         //método para mandar cola y árbol para buscar todas
-        //las coincidencias 
-        public IEnumerator<T> BuscarNombres(T parametro)
+        //las coincidencias
+
+        public T BuscarNombres(T parametro)
         {
             var queue = new ColaRecorrido<T>();
             BuscarNombres(parametro, root, ref queue );
 
+            BuscarNombres(ref queue);
+
+            return default;
+
+        }
+
+        private IEnumerator<T> BuscarNombres(ref ColaRecorrido<T> queue)
+        {
             while (!queue.ColaVacia())
             {
                 yield return queue.DesEncolar();
