@@ -8,6 +8,7 @@ namespace Laboratorio01.Data_Structure
     public class AVLtree<T> : IEnumerable<T>, IEnumerable  // interfaz
     {
         public Compare<T> Comparar { get; set; }
+        public Compare<T> CompararNombres { get; set; }
       
         public double x = 0;
         
@@ -147,6 +148,8 @@ namespace Laboratorio01.Data_Structure
             return Buscar(valor, root);
         }
 
+       
+
         private T Buscar(T elemento, AVLnode<T> raiz)
         {
             AVLnode<T> aux_Node = raiz;
@@ -181,6 +184,36 @@ namespace Laboratorio01.Data_Structure
             return;
         }
 
+        //método para mandar cola y árbol para buscar todas
+        //las coincidencias 
+        public IEnumerator<T> BuscarNombres(T parametro)
+        {
+            var queue = new ColaRecorrido<T>();
+            BuscarNombres(parametro, root, ref queue );
+
+            while (!queue.ColaVacia())
+            {
+                yield return queue.DesEncolar();
+            }
+        }
+
+        private void BuscarNombres(T parametro, AVLnode<T> padre, ref ColaRecorrido<T> queue)
+        {
+
+            if (padre != null)
+            {
+                InOrder(padre.left, ref queue);
+
+                //delegado que compare, si es igual encolar si no no 
+                if (CompararNombres(parametro, padre.value) == 0)
+                {
+                    queue.Encolar(padre.value);
+
+                }
+                InOrder(padre.right, ref queue);
+            }
+            return;
+        }
         public IEnumerator<T> GetEnumerator()
         {
             var queue = new ColaRecorrido<T>();

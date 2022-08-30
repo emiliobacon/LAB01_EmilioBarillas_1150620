@@ -28,6 +28,15 @@ namespace Laboratorio01.Comparison
             }
         }
 
+        public static int CompararNombres(ClientModel a, ClientModel b)
+        {
+            if (a.FullName == b.FullName)
+            {
+                return 0;
+            }
+            else return 1;
+        }
+
         public static int CompareInt(int a, int b)
         {
             if (a != b)
@@ -67,6 +76,33 @@ namespace Laboratorio01.Comparison
             {
                 return 0;
             }
+        }
+
+        public static int CompararFullName(ClientModel a, ClientModel b)
+        {
+
+            if (a.FullName != b.FullName)
+            {
+                if (a.FullName.CompareTo(b.FullName) < 0)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static ClientModel CompararFullName(string a)
+        {
+            ClientModel parametro = new ClientModel();
+            parametro.FullName = a;
+            return parametro;
         }
 
     }

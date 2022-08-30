@@ -22,7 +22,8 @@ namespace Laboratorio01.Helpers
   
         public AVLtree<ClientModel> miArbolAvlId = new AVLtree<ClientModel>
         {
-            Comparar = Comparison.Comparison.CompararID
+            Comparar = Comparison.Comparison.CompararID,
+            CompararNombres = Comparison.Comparison.CompararNombres
         };
 
         

@@ -22,18 +22,73 @@ namespace Laboratorio01.Controllers
             return View(Data.Instance.miArbolAvlId);
         }
 
+        //Index donde se muestran los resultados de búsqueda
 
 
-        // GET: Client/Details/5
-        public ActionResult Details()
+        public ActionResult CreateavlEmail()
         {
-            return View();
+            return View(new ClientModel());
+        }
+        // POST: ClientController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateavlEmail(IFormCollection collection)
+        {
+            try
+            {
+                string parametro = (collection["FullName"]);
+
+                return View(Data.Instance.miArbolAvlId.BuscarNombres(Comparison.Comparison.CompararFullName(parametro)));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        //b�squeda por nombre 
-        public ActionResult Search()
+
+        //busqueda por nombre
+
+        public ActionResult Create3()
         {
-            return View(Data.Instance.miArbolAvlId);
+            //formulario para búsqueda
+            return View(new ClientModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create3(IFormCollection collection)
+        {
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Create2()
+        {
+            //formulario para búsqueda
+            return View(new ClientModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create2(IFormCollection collection)
+        {
+            try
+            {
+                string parametro = (collection["FullName"]);
+
+                return View(Data.Instance.miArbolAvlId.BuscarNombres(Comparison.Comparison.CompararFullName(parametro)));
+            }
+            catch 
+            {
+                return RedirectToAction(nameof(Error));
+            }
         }
 
 
