@@ -143,7 +143,7 @@ namespace Laboratorio01.Controllers
         }
 
         // GET: Client/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
@@ -153,16 +153,19 @@ namespace Laboratorio01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            
+                int parametroId = (int.Parse(collection["Id"]));
+                ClientModel clienteEliminar = new ClientModel();
+                clienteEliminar.Id = parametroId;
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                if (Data.Instance.miArbolAvlId.Eliminar(clienteEliminar) != default)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                } 
         }
 
         //Cargar desde CSV 

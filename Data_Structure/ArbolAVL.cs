@@ -28,7 +28,7 @@ namespace Laboratorio01.Data_Structure
 
             AVLnode<T> newNode = new AVLnode<T>(value);
 
-            if (this.root == null)
+            if (this.root == null || this.root.value == null)
             {
                 this.root = newNode;
                 newNode.father = null;
@@ -166,21 +166,89 @@ namespace Laboratorio01.Data_Structure
             {
                 return default(T);
             }
+            //check
+            else if (aux_Node.father == null)
+            {
+                //si el nodo es raíz
+                if (aux_Node.left == null && aux_Node.right == null)
+                {
+                    raiz.value = default;
+                    
+                }
+                else if (aux_Node.left != null)
+                {
+                    raiz = aux_Node.left;
 
+                }
+                else
+                {
+                    raiz = aux_Node.right;
+                }
+                return elemento; 
+            }
             else if (Comparar(elemento, aux_Node.value) == 0)
             {
-                aux_Node.left = null;
-                aux_Node.right = null;
+                if (aux_Node.father.left == aux_Node)
+                {
+                    if (aux_Node.left == null && aux_Node.right == null)
+                    {
+                        aux_Node.father.left = null;
 
-                return default;
+                        return elemento;
+                    }
+                    else
+                    {
+                        //nodo intermedio solo con hijo izquierdo
+                        if (aux_Node.left != null)
+                        {
+                            aux_Node.father.left = aux_Node.left;
+
+                            return elemento;
+                        }
+                        else
+                        //nodo intermedio solo con hijo derecho
+                        {
+                            aux_Node.father.left = aux_Node.right;
+
+                            return elemento;
+                        }
+                    }
+                }
+                else if (aux_Node.father.right == aux_Node)
+                {
+                    if (aux_Node.left == null && aux_Node.right == null)
+                    {
+                        aux_Node.father.right = null;
+
+                        return elemento;
+                    }
+                    else
+                    {
+                        if (aux_Node.right != null)
+                        {
+                            //si el nodo intermedio solo tiene hijo derecho
+                            aux_Node.father.right = aux_Node.right;
+                            return elemento;
+                        }
+                        else
+                        {
+                            //si el nodo intermedio solo tiene hijo izquierdo
+                            aux_Node.father.right = aux_Node.left;
+                            return elemento;
+                        }
+                    }
+
+                }
+                return elemento;
+                
             }
             else if (Comparar(elemento, aux_Node.value) < 0)
             {
-                return Buscar(elemento, aux_Node.left);
+                return Eliminar(elemento, aux_Node.left);
             }
             else
             {
-                return Buscar(elemento, aux_Node.right);
+                return Eliminar(elemento, aux_Node.right);
             }
         }
 
