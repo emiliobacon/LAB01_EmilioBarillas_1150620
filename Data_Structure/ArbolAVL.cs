@@ -198,11 +198,11 @@ namespace Laboratorio01.Data_Structure
             }
             else if (Comparar(elemento, aux_Node.value) < 0)
             {
-                return Buscar(elemento, aux_Node.left);
+                return Eliminar(elemento, aux_Node.left);
             }
             else
             {
-                return Buscar(elemento, aux_Node.right);
+                return Eliminar(elemento, aux_Node.right);
             }
         }
 
