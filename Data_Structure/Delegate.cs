@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Laboratorio01.Data_Structure
 {
-    public delegate int Compare<T>(T a, T b);
+    public delegate int Comparar<T>(T a, T b);
 
     public class Comparison
     {

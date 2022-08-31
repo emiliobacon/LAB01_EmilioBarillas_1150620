@@ -36,9 +36,14 @@ namespace Laboratorio01.Controllers
         {
             try
             {
+                string valores = "";
+
                 string parametro = (collection["FullName"]);
 
-                return View(Data.Instance.miArbolAvlId.BuscarNombres(Comparison.Comparison.CompararFullName(parametro)));
+                ViewData["ResultadosBúsqueda"] = Data.Instance.miArbolAvlId.BuscarNombres2(Comparison.Comparison.CompararFullName(parametro), ref valores);
+
+               
+                return View();
             }
             catch
             {
@@ -81,9 +86,7 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                string parametro = (collection["FullName"]);
-
-                return View(Data.Instance.miArbolAvlId.BuscarNombres(Comparison.Comparison.CompararFullName(parametro)));
+                return View();
             }
             catch 
             {

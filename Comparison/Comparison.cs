@@ -5,6 +5,10 @@ namespace Laboratorio01.Comparison
 {
     public delegate int Compare<T>(T a, T b);
 
+    //carlos laparra 1031120 me ayudó en esta parte 
+
+    public delegate string Info<T>(T a);
+
     public class Comparison
     {
 
@@ -103,6 +107,13 @@ namespace Laboratorio01.Comparison
             ClientModel parametro = new ClientModel();
             parametro.FullName = a;
             return parametro;
+        }
+
+        public static string returnInfo( ClientModel a)
+        {
+            string info = a.FullName + "," + a.Address + "," + a.Birthdate + "," + a.Id;
+            
+            return info;
         }
 
     }

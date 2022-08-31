@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Collections;
+using System;
+using System.Reflection.Metadata;
+using Laboratorio01.Comparison;
 
 namespace Laboratorio01.Data_Structure
 {
@@ -9,7 +12,8 @@ namespace Laboratorio01.Data_Structure
     {
         public Compare<T> Comparar { get; set; }
         public Compare<T> CompararNombres { get; set; }
-      
+        public Info<T> DevolverInfo { get; set; }
+
         public double x = 0;
         
         AVLnode<T> root;
@@ -183,46 +187,7 @@ namespace Laboratorio01.Data_Structure
             }
             return;
         }
-
-        //método para mandar cola y árbol para buscar todas
-        //las coincidencias
-
-        public T BuscarNombres(T parametro)
-        {
-            var queue = new ColaRecorrido<T>();
-            BuscarNombres(parametro, root, ref queue );
-
-            BuscarNombres(ref queue);
-
-            return default;
-
-        }
-
-        private IEnumerator<T> BuscarNombres(ref ColaRecorrido<T> queue)
-        {
-            while (!queue.ColaVacia())
-            {
-                yield return queue.DesEncolar();
-            }
-        }
-
-        private void BuscarNombres(T parametro, AVLnode<T> padre, ref ColaRecorrido<T> queue)
-        {
-
-            if (padre != null)
-            {
-                InOrder(padre.left, ref queue);
-
-                //delegado que compare, si es igual encolar si no no 
-                if (CompararNombres(parametro, padre.value) == 0)
-                {
-                    queue.Encolar(padre.value);
-
-                }
-                InOrder(padre.right, ref queue);
-            }
-            return;
-        }
+ 
         public IEnumerator<T> GetEnumerator()
         {
             var queue = new ColaRecorrido<T>();
@@ -238,6 +203,35 @@ namespace Laboratorio01.Data_Structure
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+     
+
+        public string BuscarNombres2(T valor, ref string listaNombres)
+        {
+            InOrder2(root, ref listaNombres, valor);
+
+            return listaNombres;
+
+        }
+
+
+        private void InOrder2(AVLnode<T> padre, ref string listaNombres, T valor)
+        {
+
+            if (padre != null)
+            {
+                InOrder2(padre.left, ref listaNombres, valor);
+
+                if (CompararNombres(valor,padre.value) == 0)
+                {
+                    
+                    listaNombres +=  "\n" + DevolverInfo(padre.value) + "\n";
+                }
+
+                InOrder2(padre.right, ref listaNombres, valor);
+            }
+            return;
         }
     }
 }
