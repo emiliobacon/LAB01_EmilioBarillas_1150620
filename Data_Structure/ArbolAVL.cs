@@ -48,7 +48,7 @@ namespace Laboratorio01.Data_Structure
                 {
 
                     actualroot.left = this.InsertNode(actualroot.left, newNode);//se manda a la nodo izquierdo
-                    newNode.father = actualroot;//asigna padre
+                    
 
                     //Factor de balanceo
                     if (this.Node_Height(actualroot.right) - this.Node_Height(actualroot.left) == -2)
@@ -68,7 +68,7 @@ namespace Laboratorio01.Data_Structure
                 else if (Comparar(newNode.value, actualroot.value) > 0) //cuando es mayor
                 {
                     actualroot.right = this.InsertNode(actualroot.right, newNode);//se manda a la nodo derecho
-                    newNode.father = actualroot;//asigna padre
+                   
 
                     if (this.Node_Height(actualroot.right) - this.Node_Height(actualroot.left) == 2) //validaciones de balanceo
                     {
@@ -127,6 +127,7 @@ namespace Laboratorio01.Data_Structure
             AVLnode<T> aux_Node = node.left;
             node.left = aux_Node.right;
             aux_Node.right = node;
+
             node.height = this.Max_Height(this.Node_Height(node.right), this.Node_Height(node.left)) + 1;
             aux_Node.height = this.Max_Height(node.height, this.Node_Height(node.left)) + 1;
             return aux_Node;
@@ -153,103 +154,94 @@ namespace Laboratorio01.Data_Structure
             return aux_Node;
         }
 
-        public T Eliminar(T valor)
+        private int AlturaIzquierda(ref AVLnode<T> raiz)
         {
-            return Eliminar(valor, root);
+            int c = 0;
+            while (raiz != null)
+            {
+                c++;
+                raiz = raiz.left;
+            }
+            return c; 
         }
 
-        private T Eliminar(T elemento, AVLnode<T> raiz)
+        private AVLnode<T> NodomasDerechoso(ref AVLnode<T> raiz)
         {
-            AVLnode<T> aux_Node = raiz;
+            int h = AlturaIzquierda(ref raiz);
 
-            if (aux_Node == null)
+            if (h == 1)
+            {
+                AVLnode<T> nodo = raiz;
+                raiz = null;
+                return nodo;
+            }
+            else if ((h-1) == AlturaIzquierda(ref raiz.right))
+            {
+                return NodomasDerechoso(ref raiz.right);
+            }
+            return NodomasDerechoso(ref raiz.left);
+        }
+
+
+
+        public T Eliminar(T valor)
+        {
+            return Eliminar(valor, ref root);
+        }
+
+        private T Eliminar(T elemento, ref AVLnode<T> raiz)
+        {
+
+            
+
+            if (raiz == null)
             {
                 return default(T);
             }
-            //check
-            else if (aux_Node.father == null)
+            else if (Comparar(elemento, raiz.value) == 0)
             {
-                //si el nodo es raíz
-                if (aux_Node.left == null && aux_Node.right == null)
+                //ingresar eliminacion
+                
+                if (raiz.left == null && raiz.right == null)
                 {
-                    raiz.value = default;
-                    
+                    //si el nodo es hoja
+                    raiz = null;                    
                 }
-                else if (aux_Node.left != null)
+                else if (raiz.left != null && raiz.right == null)
                 {
-                    raiz = aux_Node.left;
+                    //si solo tiene hijo izquierdo
+                    raiz = raiz.left;
+                    raiz.left = null;
 
                 }
-                else
+                else if (raiz.left == null && raiz.right != null)
                 {
-                    raiz = aux_Node.right;
+                    //si solo tiene hijo derecho
+                    raiz = raiz.right;
+                    raiz.right = null;
                 }
-                return elemento; 
-            }
-            else if (Comparar(elemento, aux_Node.value) == 0)
-            {
-                if (aux_Node.father.left == aux_Node)
+                else 
                 {
-                    if (aux_Node.left == null && aux_Node.right == null)
-                    {
-                        aux_Node.father.left = null;
+                    //si tiene dos nodos
+                    AVLnode<T> izquierda = raiz.left;
 
-                        return elemento;
-                    }
-                    else
-                    {
-                        //nodo intermedio solo con hijo izquierdo
-                        if (aux_Node.left != null)
-                        {
-                            aux_Node.father.left = aux_Node.left;
+                    raiz = raiz.right;
+                    raiz.left = izquierda;
 
-                            return elemento;
-                        }
-                        else
-                        //nodo intermedio solo con hijo derecho
-                        {
-                            aux_Node.father.left = aux_Node.right;
-
-                            return elemento;
-                        }
-                    }
-                }
-                else if (aux_Node.father.right == aux_Node)
-                {
-                    if (aux_Node.left == null && aux_Node.right == null)
-                    {
-                        aux_Node.father.right = null;
-
-                        return elemento;
-                    }
-                    else
-                    {
-                        if (aux_Node.right != null)
-                        {
-                            //si el nodo intermedio solo tiene hijo derecho
-                            aux_Node.father.right = aux_Node.right;
-                            return elemento;
-                        }
-                        else
-                        {
-                            //si el nodo intermedio solo tiene hijo izquierdo
-                            aux_Node.father.right = aux_Node.left;
-                            return elemento;
-                        }
-                    }
+                    raiz.right = null;
 
                 }
                 return elemento;
-                
             }
-            else if (Comparar(elemento, aux_Node.value) < 0)
+            else if (Comparar(elemento, raiz.value) < 0)
             {
-                return Eliminar(elemento, aux_Node.left);
+                return Eliminar(elemento, ref raiz.left);
             }
             else
             {
-                return Eliminar(elemento, aux_Node.right);
+                return Eliminar(elemento, ref raiz.right);
             }
+
         }
 
         public T Buscar(T valor)
