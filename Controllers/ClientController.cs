@@ -74,27 +74,6 @@ namespace Laboratorio01.Controllers
             }
         }
 
-        public ActionResult Create2()
-        {
-            //formulario para búsqueda
-            return View(new ClientModel());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create2(IFormCollection collection)
-        {
-            try
-            {
-                return View();
-            }
-            catch 
-            {
-                return RedirectToAction(nameof(Error));
-            }
-        }
-
-
         //Mostrar error al cargar
         public ActionResult Error()
         {
