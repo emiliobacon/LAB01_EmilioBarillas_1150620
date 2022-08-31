@@ -169,6 +169,28 @@ namespace Laboratorio01.Data_Structure
             //check 
             else if (Comparar(elemento, aux_Node.value) == 0)
             {
+                if (aux_Node.father.left == aux_Node)
+                {
+                    if (aux_Node.left == null && aux_Node.right == null)
+                    {
+                        aux_Node.father.left = null;
+                    }
+                    else
+                    {
+                        //si es nodo intermedio 
+                    }
+                }
+                else if (aux_Node.father.right == aux_Node)
+                {
+                    if (aux_Node.left == null && aux_Node.right == null)
+                    {
+                        aux_Node.father.right = null;
+                    }
+                    else
+                    {
+                        //si es nodo intermedio 
+                    }
+                }
                 aux_Node.left = null;
                 aux_Node.right = null;
 

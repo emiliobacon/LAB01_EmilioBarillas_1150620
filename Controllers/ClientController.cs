@@ -143,7 +143,7 @@ namespace Laboratorio01.Controllers
         }
 
         // GET: Client/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
@@ -155,13 +155,13 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                
 
-                return RedirectToAction(nameof(Index));
+                
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 
