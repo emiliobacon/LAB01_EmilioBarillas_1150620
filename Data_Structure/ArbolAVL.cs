@@ -31,6 +31,7 @@ namespace Laboratorio01.Data_Structure
             if (this.root == null)
             {
                 this.root = newNode;
+                newNode.father = null;
             }
             else
             {  
@@ -45,7 +46,10 @@ namespace Laboratorio01.Data_Structure
             {
                 if (Comparar(newNode.value, actualroot.value) < 0)//Cuando es menor
                 {
+
                     actualroot.left = this.InsertNode(actualroot.left, newNode);//se manda a la nodo izquierdo
+                    newNode.father = actualroot;//asigna padre
+
                     //Factor de balanceo
                     if (this.Node_Height(actualroot.right) - this.Node_Height(actualroot.left) == -2)
                     {
@@ -64,6 +68,8 @@ namespace Laboratorio01.Data_Structure
                 else if (Comparar(newNode.value, actualroot.value) > 0) //cuando es mayor
                 {
                     actualroot.right = this.InsertNode(actualroot.right, newNode);//se manda a la nodo derecho
+                    newNode.father = actualroot;//asigna padre
+
                     if (this.Node_Height(actualroot.right) - this.Node_Height(actualroot.left) == 2) //validaciones de balanceo
                     {
                         //Entra a rotacion izquierda
@@ -147,12 +153,41 @@ namespace Laboratorio01.Data_Structure
             return aux_Node;
         }
 
+        public T Eliminar(T valor)
+        {
+            return Eliminar(valor, root);
+        }
+
+        private T Eliminar(T elemento, AVLnode<T> raiz)
+        {
+            AVLnode<T> aux_Node = raiz;
+
+            if (aux_Node == null)
+            {
+                return default(T);
+            }
+
+            else if (Comparar(elemento, aux_Node.value) == 0)
+            {
+                aux_Node.left = null;
+                aux_Node.right = null;
+
+                return default;
+            }
+            else if (Comparar(elemento, aux_Node.value) < 0)
+            {
+                return Buscar(elemento, aux_Node.left);
+            }
+            else
+            {
+                return Buscar(elemento, aux_Node.right);
+            }
+        }
+
         public T Buscar(T valor)
         {
             return Buscar(valor, root);
         }
-
-       
 
         private T Buscar(T elemento, AVLnode<T> raiz)
         {
