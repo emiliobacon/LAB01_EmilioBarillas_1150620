@@ -5,6 +5,10 @@ namespace Laboratorio01.Comparison
 {
     public delegate int Compare<T>(T a, T b);
 
+    //carlos laparra 1031120 me ayudó en esta parte 
+
+    public delegate string Info<T>(T a);
+
     public class Comparison
     {
 
@@ -26,6 +30,15 @@ namespace Laboratorio01.Comparison
             {
                 return 0;
             }
+        }
+
+        public static int CompararNombres(ClientModel a, ClientModel b)
+        {
+            if (a.FullName == b.FullName)
+            {
+                return 0;
+            }
+            else return 1;
         }
 
         public static int CompareInt(int a, int b)
@@ -67,6 +80,40 @@ namespace Laboratorio01.Comparison
             {
                 return 0;
             }
+        }
+
+        public static int CompararFullName(ClientModel a, ClientModel b)
+        {
+
+            if (a.FullName != b.FullName)
+            {
+                if (a.FullName.CompareTo(b.FullName) < 0)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static ClientModel CompararFullName(string a)
+        {
+            ClientModel parametro = new ClientModel();
+            parametro.FullName = a;
+            return parametro;
+        }
+
+        public static string returnInfo( ClientModel a)
+        {
+            string info = a.FullName + "," + a.Address + "," + a.Birthdate + "," + a.Id;
+            
+            return info;
         }
 
     }

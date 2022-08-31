@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using Laboratorio01.Data_Structure;
 using Laboratorio01.Helpers;
 using Laboratorio01.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -21,10 +22,56 @@ namespace Laboratorio01.Controllers
             return View(Data.Instance.miArbolAvlId);
         }
 
-        // GET: Client/Details/5
-        public ActionResult Details()
+        //Index donde se muestran los resultados de búsqueda
+
+
+        public ActionResult CreateavlEmail()
         {
-            return View();
+            return View(new ClientModel());
+        }
+        // POST: ClientController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateavlEmail(IFormCollection collection)
+        {
+            try
+            {
+                string valores = "";
+
+                string parametro = (collection["FullName"]);
+
+                ViewData["ResultadosBúsqueda"] = Data.Instance.miArbolAvlId.BuscarNombres2(Comparison.Comparison.CompararFullName(parametro), ref valores);
+
+               
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        //busqueda por nombre
+
+        public ActionResult Create3()
+        {
+            //formulario para búsqueda
+            return View(new ClientModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create3(IFormCollection collection)
+        {
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //Mostrar error al cargar
@@ -50,6 +97,8 @@ namespace Laboratorio01.Controllers
                 {
                     Id = int.Parse(collection["Id"]),
                     FullName = collection["FullName"],
+                    Birthdate = collection["Birthdate"],
+                    Address = collection["Address"],
                 });
                 return RedirectToAction(nameof(Index));
             }
@@ -60,7 +109,7 @@ namespace Laboratorio01.Controllers
         }
 
         // GET: Client/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edicion()
         {
             return View();
         }
@@ -68,17 +117,28 @@ namespace Laboratorio01.Controllers
         // POST: Client/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edicion(IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            int parametroId = (int.Parse(collection["Id"]));
 
+            string addressModificar = collection["Address"];
+            string birhtdateModificar = collection["Birthdate"];
+
+            ClientModel clienteBuscar = new ClientModel();
+            ClientModel clienteModificar = null;
+
+            clienteBuscar.Id = parametroId;
+
+            if (Data.Instance.miArbolAvlId.Buscar(clienteBuscar) != default)
+            {
+                clienteModificar = Data.Instance.miArbolAvlId.Buscar(clienteBuscar);
+                clienteModificar.Address = addressModificar;
+                clienteModificar.Birthdate = birhtdateModificar;
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 
@@ -107,9 +167,9 @@ namespace Laboratorio01.Controllers
 
         //Cargar desde CSV 
         [HttpGet]
-        public IActionResult Index(List<ClientModel> clients = null)
+        public IActionResult Index(AVLtree<ClientModel> clients = null)
         {
-            clients = clients == null ? new List<ClientModel>() : clients;
+            clients = clients == null ? new AVLtree<ClientModel>() : clients;
             return View(Data.Instance.miArbolAvlId);
         }
 
@@ -127,31 +187,27 @@ namespace Laboratorio01.Controllers
 
 
             var clients = this.GetClientList(file.FileName);
-
             return Index(clients);
         }
 
-        private List<ClientModel> GetClientList(string fileName)
+        private AVLtree<ClientModel> GetClientList(string fileName)
         {
-            List<ClientModel> clients = new List<ClientModel>();
+            AVLtree<ClientModel> client = new AVLtree<ClientModel>();
 
             //Leer CSV
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
-            using (var reader = new StringReader(path))
+            using (var reader = new StreamReader(path))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Read();
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    var client = csv.GetRecord<ClientModel>();
-                    Data.Instance.miArbolAvlId.Insert(client);
+                    var clients = csv.GetRecord<ClientModel>();
+                    Data.Instance.miArbolAvlId.Insert(clients);
                 }
             }
-
-            
-
-            return clients;
+            return client;
 
         }
 
