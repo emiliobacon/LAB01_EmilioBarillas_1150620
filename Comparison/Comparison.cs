@@ -111,8 +111,9 @@ namespace Laboratorio01.Comparison
 
         public static string returnInfo( ClientModel a)
         {
-            string info = a.FullName + "," + a.Address + "," + a.Birthdate + "," + a.Id;
-            
+            string info = "Id: " + a.Id + ", Nombre: " + a.FullName + ", Fecha de Nacimiento: " + a.Birthdate + ", Dirección: " + a.Address;
+
+
             return info;
         }
 
