@@ -109,7 +109,7 @@ namespace Laboratorio01.Controllers
         }
 
         // GET: Client/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edicion()
         {
             return View();
         }
@@ -117,17 +117,28 @@ namespace Laboratorio01.Controllers
         // POST: Client/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edicion(IFormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            int parametroId = (int.Parse(collection["Id"]));
 
+            string addressModificar = collection["Address"];
+            string birhtdateModificar = collection["Birthdate"];
+
+            ClientModel clienteBuscar = new ClientModel();
+            ClientModel clienteModificar = null;
+
+            clienteBuscar.Id = parametroId;
+
+            if (Data.Instance.miArbolAvlId.Buscar(clienteBuscar) != default)
+            {
+                clienteModificar = Data.Instance.miArbolAvlId.Buscar(clienteBuscar);
+                clienteModificar.Address = addressModificar;
+                clienteModificar.Birthdate = birhtdateModificar;
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 
