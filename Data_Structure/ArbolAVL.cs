@@ -166,7 +166,7 @@ namespace Laboratorio01.Data_Structure
             {
                 return default(T);
             }
-
+            //check 
             else if (Comparar(elemento, aux_Node.value) == 0)
             {
                 aux_Node.left = null;
