@@ -153,16 +153,19 @@ namespace Laboratorio01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                
+            
+                int parametroId = (int.Parse(collection["Id"]));
+                ClientModel clienteEliminar = new ClientModel();
+                clienteEliminar.Id = parametroId;
 
-                
-            }
-            catch
-            {
-                return RedirectToAction(nameof(Error));
-            }
+                if (Data.Instance.miArbolAvlId.Eliminar(clienteEliminar) != default)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Error));
+                } 
         }
 
         //Cargar desde CSV 
