@@ -95,7 +95,7 @@ namespace Laboratorio01.Controllers
             {
                 ClientModel.SaveAVLMode(new ClientModel
                 {
-                    Id = int.Parse(collection["Id"]),
+                    Id = long.Parse(collection["Id"]),
                     FullName = collection["FullName"],
                     Birthdate = collection["Birthdate"],
                     Address = collection["Address"],
@@ -119,7 +119,7 @@ namespace Laboratorio01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edicion(IFormCollection collection)
         {
-            int parametroId = (int.Parse(collection["Id"]));
+            long parametroId = (long.Parse(collection["Id"]));
 
             string addressModificar = collection["Address"];
             string birhtdateModificar = collection["Birthdate"];
@@ -153,8 +153,8 @@ namespace Laboratorio01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            
-                int parametroId = (int.Parse(collection["Id"]));
+
+            long parametroId = (long.Parse(collection["Id"]));
                 ClientModel clienteEliminar = new ClientModel();
                 clienteEliminar.Id = parametroId;
 

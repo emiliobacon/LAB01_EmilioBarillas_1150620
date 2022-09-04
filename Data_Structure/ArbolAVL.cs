@@ -1,9 +1,6 @@
 ﻿using Laboratorio01.Data_Structure.Cola;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Collections;
-using System;
-using System.Reflection.Metadata;
 using Laboratorio01.Comparison;
 
 namespace Laboratorio01.Data_Structure
@@ -201,7 +198,6 @@ namespace Laboratorio01.Data_Structure
             else if (Comparar(elemento, raiz.value) == 0)
             {
                 //ingresar eliminacion
-                
                 if (raiz.left == null && raiz.right == null)
                 {
                     //si el nodo es hoja
@@ -224,6 +220,11 @@ namespace Laboratorio01.Data_Structure
                 {
                     //si tiene dos nodos
                     AVLnode<T> izquierda = raiz.left;
+
+                    while (raiz.right != null)
+                    {
+                        
+                    }
 
                     raiz = raiz.right;
                     raiz.left = izquierda;
