@@ -25,7 +25,8 @@ namespace Laboratorio01.Helpers
             
             Comparar = Comparison.Comparison.CompararID,
             CompararNombres = Comparison.Comparison.CompararNombres,
-            DevolverInfo = Comparison.Comparison.returnInfo
+            DevolverInfo = Comparison.Comparison.returnInfo,
+            Encolar = Comparison.Comparison.encolarCompanies
             
         };
 

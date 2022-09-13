@@ -9,6 +9,8 @@ namespace Laboratorio01.Comparison
 
     public delegate string Info<T>(T a);
 
+    public delegate void Encolar<T>(T a);
+
     public class Comparison
     {
 
@@ -117,6 +119,18 @@ namespace Laboratorio01.Comparison
             return info;
         }
 
+        public static void encolarCompanies(ClientModel a)
+        {
+            string phrase = a.Companies;
+            string[] words = phrase.Split(' ');
+
+
+            foreach (var word in words)
+            {
+                a.Items.Add(word);
+
+            }
+        }
     }
 }
 

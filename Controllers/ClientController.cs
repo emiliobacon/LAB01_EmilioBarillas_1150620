@@ -11,6 +11,8 @@ using Laboratorio01.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
+
 
 namespace Laboratorio01.Controllers
 {
@@ -99,6 +101,9 @@ namespace Laboratorio01.Controllers
                     FullName = collection["FullName"],
                     Birthdate = collection["Birthdate"],
                     Address = collection["Address"],
+                    Companies = collection["Companies"]
+                    
+                    
                 });
                 return RedirectToAction(nameof(Index));
             }
@@ -167,6 +172,7 @@ namespace Laboratorio01.Controllers
                     return RedirectToAction(nameof(Error));
                 } 
         }
+
 
         //Cargar desde CSV 
         [HttpGet]

@@ -10,6 +10,8 @@ namespace Laboratorio01.Data_Structure
         public Compare<T> Comparar { get; set; }
         public Compare<T> CompararNombres { get; set; }
         public Info<T> DevolverInfo { get; set; }
+        public Encolar<T> Encolar { get; set; }
+
 
         public double x = 0;
         
@@ -22,8 +24,11 @@ namespace Laboratorio01.Data_Structure
 
         public void Insert(T value)
         {
+            
 
             AVLnode<T> newNode = new AVLnode<T>(value);
+
+            //Encolar(value);
 
             if (this.root == null || this.root.value == null)
             {
