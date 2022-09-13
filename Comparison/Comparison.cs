@@ -1,5 +1,6 @@
 ﻿using System;
 using Laboratorio01.Models;
+using Laboratorio01.LZ78;
 
 namespace Laboratorio01.Comparison
 {
@@ -127,7 +128,10 @@ namespace Laboratorio01.Comparison
             string[] words = phrase.Split(' ');
             foreach (var word in words)
             {
-                a.Companies += a.Id + word + " " +"\n";
+                string aCodificar = word + a.Id;
+
+                a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
+
             }
         }
     }

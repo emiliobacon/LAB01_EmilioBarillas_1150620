@@ -11,6 +11,7 @@
     <None Remove="Helpers\" />
     <None Remove="Comparison\" />
     <None Remove="CsvHelper" />
+    <None Remove="LZ78\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data_Structure\" />
@@ -19,6 +20,7 @@
     <Folder Include="Comparison\" />
     <Folder Include="wwwroot\files\" />
     <Folder Include="wwwroot\FilesTO\" />
+    <Folder Include="LZ78\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
