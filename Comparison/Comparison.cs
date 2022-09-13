@@ -122,13 +122,12 @@ namespace Laboratorio01.Comparison
         public static void encolarCompanies(ClientModel a)
         {
             string phrase = a.Companies;
+            a.Companies = "";
+
             string[] words = phrase.Split(' ');
-
-
             foreach (var word in words)
             {
-                a.Items.Add(word);
-
+                a.Companies += a.Id + word + " " +"\n";
             }
         }
     }

@@ -28,7 +28,7 @@ namespace Laboratorio01.Data_Structure
 
             AVLnode<T> newNode = new AVLnode<T>(value);
 
-            //Encolar(value);
+            Encolar(value);
 
             if (this.root == null || this.root.value == null)
             {
