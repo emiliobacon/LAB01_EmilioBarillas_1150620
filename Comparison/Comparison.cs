@@ -128,7 +128,7 @@ namespace Laboratorio01.Comparison
             string[] words = phrase.Split(' ');
             foreach (var word in words)
             {
-                string aCodificar = word + a.Id;
+                string aCodificar = word; //+ a.Id;
 
                 a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
 
