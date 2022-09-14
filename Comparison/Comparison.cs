@@ -128,11 +128,19 @@ namespace Laboratorio01.Comparison
             string[] words = phrase.Split(' ');
             foreach (var word in words)
             {
-                string aCodificar = word; //+ a.Id;
+                string aCodificar = word + a.Id;
 
                 a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
+                a.CompaniesDecoded += word + ": " + LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar));
 
             }
+        }
+
+        public static ClientModel CompararID(int a)
+        {
+            ClientModel parametro = new ClientModel();
+            parametro.Id = a;
+            return parametro;
         }
     }
 }

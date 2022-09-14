@@ -26,6 +26,45 @@ namespace Laboratorio01.Controllers
 
         //Index donde se muestran los resultados de búsqueda
 
+        public ActionResult searchId()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult searchId(IFormCollection collection)
+        {
+            try
+            {
+                int parametro = (int.Parse(collection["Id"]));                
+                return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
+            }
+            catch 
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
+
+        //busqueda completa
+        public ActionResult decoded()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult decoded(IFormCollection collection)
+        {
+            try
+            {
+                int parametro = (int.Parse(collection["Id"]));
+
+                return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
 
         public ActionResult CreateavlEmail()
         {
@@ -49,7 +88,7 @@ namespace Laboratorio01.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 

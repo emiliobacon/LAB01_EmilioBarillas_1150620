@@ -26,6 +26,9 @@ namespace Laboratorio01.Models
         
         public string Companies { get; set; }
 
+        public string  CompaniesDecoded { get; set; }
+
+
         public static bool SaveAVLMode(ClientModel data)
         {
             
