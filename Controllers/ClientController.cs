@@ -36,7 +36,7 @@ namespace Laboratorio01.Controllers
         {
             try
             {
-                int parametro = (int.Parse(collection["Id"]));                
+                long parametro = (long.Parse(collection["Id"]));                
                 return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
             }
             catch 

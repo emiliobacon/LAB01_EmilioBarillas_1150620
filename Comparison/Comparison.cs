@@ -131,12 +131,12 @@ namespace Laboratorio01.Comparison
                 string aCodificar = word + a.Id;
 
                 a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
-                a.CompaniesDecoded += word + ": " + LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar)) + " ";
+                a.CompaniesDecoded += LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar)) + " ";
 
             }
         }
 
-        public static ClientModel CompararID(int a)
+        public static ClientModel CompararID(long a)
         {
             ClientModel parametro = new ClientModel();
             parametro.Id = a;
