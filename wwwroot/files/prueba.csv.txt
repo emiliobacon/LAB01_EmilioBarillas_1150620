@@ -1,0 +1,2 @@
+Id,FullName,Birthdate,Address,Companies,CompaniesDecoded
+11,emilio,julio,ciudad,amazon,

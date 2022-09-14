@@ -136,7 +136,7 @@ namespace Laboratorio01.Comparison
             }
         }
 
-        public static ClientModel CompararID(int a)
+        public static ClientModel CompararID(long a)
         {
             ClientModel parametro = new ClientModel();
             parametro.Id = a;
