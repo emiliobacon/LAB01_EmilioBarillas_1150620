@@ -1,0 +1,62 @@
+﻿@model Laboratorio01.Models.ClientModel
+
+@{
+    ViewData["Title"] = "searchId";
+}
+
+<h1>
+    Resultados Búsqueda
+</h1>
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.CompaniesDecoded)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Model.Id
+            </td>
+            <td>
+                @Model.FullName
+            </td>
+            <td>
+                @Model.Birthdate
+            </td>
+            <td>
+                @Model.Address
+            </td>
+            <td>
+                @Model.CompaniesDecoded
+            </td>
+            <td>
+               
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>

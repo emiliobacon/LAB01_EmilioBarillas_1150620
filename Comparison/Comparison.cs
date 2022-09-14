@@ -1,5 +1,6 @@
 ﻿using System;
 using Laboratorio01.Models;
+using Laboratorio01.LZ78;
 
 namespace Laboratorio01.Comparison
 {
@@ -8,6 +9,8 @@ namespace Laboratorio01.Comparison
     //carlos laparra 1031120 me ayudó en esta parte 
 
     public delegate string Info<T>(T a);
+
+    public delegate void Encolar<T>(T a);
 
     public class Comparison
     {
@@ -117,6 +120,28 @@ namespace Laboratorio01.Comparison
             return info;
         }
 
+        public static void encolarCompanies(ClientModel a)
+        {
+            string phrase = a.Companies;
+            a.Companies = "";
+
+            string[] words = phrase.Split(' ');
+            foreach (var word in words)
+            {
+                string aCodificar = word + a.Id;
+
+                a.Companies += word + ": " + LZ78.LZ78.CodingLZ78(aCodificar) + " ";
+                a.CompaniesDecoded += word + ": " + LZ78.LZ78.decodingLZ78(LZ78.LZ78.CodingLZ78(aCodificar));
+
+            }
+        }
+
+        public static ClientModel CompararID(int a)
+        {
+            ClientModel parametro = new ClientModel();
+            parametro.Id = a;
+            return parametro;
+        }
     }
 }
 

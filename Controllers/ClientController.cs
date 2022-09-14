@@ -11,6 +11,8 @@ using Laboratorio01.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
+
 
 namespace Laboratorio01.Controllers
 {
@@ -24,6 +26,45 @@ namespace Laboratorio01.Controllers
 
         //Index donde se muestran los resultados de búsqueda
 
+        public ActionResult searchId()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult searchId(IFormCollection collection)
+        {
+            try
+            {
+                int parametro = (int.Parse(collection["Id"]));                
+                return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
+            }
+            catch 
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
+
+        //busqueda completa
+        public ActionResult decoded()
+        {
+            return View(new ClientModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult decoded(IFormCollection collection)
+        {
+            try
+            {
+                int parametro = (int.Parse(collection["Id"]));
+
+                return View(Data.Instance.miArbolAvlId.Buscar(Comparison.Comparison.CompararID(parametro)));
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Error));
+            }
+        }
 
         public ActionResult CreateavlEmail()
         {
@@ -47,7 +88,7 @@ namespace Laboratorio01.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Error));
             }
         }
 
@@ -99,6 +140,9 @@ namespace Laboratorio01.Controllers
                     FullName = collection["FullName"],
                     Birthdate = collection["Birthdate"],
                     Address = collection["Address"],
+                    Companies = collection["Companies"]
+                    
+                    
                 });
                 return RedirectToAction(nameof(Index));
             }
@@ -167,6 +211,7 @@ namespace Laboratorio01.Controllers
                     return RedirectToAction(nameof(Error));
                 } 
         }
+
 
         //Cargar desde CSV 
         [HttpGet]
